@@ -103,6 +103,7 @@ public class DataConverter {
         break;
       }
 
+      case Types.BIT:
       case Types.BOOLEAN: {
         if (optional) {
           builder.field(fieldName, Schema.OPTIONAL_BOOLEAN_SCHEMA);
@@ -113,7 +114,6 @@ public class DataConverter {
       }
 
       // ints <= 8 bits
-      case Types.BIT:
       case Types.TINYINT: {
         if (optional) {
           builder.field(fieldName, Schema.OPTIONAL_INT8_SCHEMA);
@@ -272,18 +272,9 @@ public class DataConverter {
         break;
       }
 
+      case Types.BIT:
       case Types.BOOLEAN: {
         colValue = resultSet.getBoolean(col);
-        break;
-      }
-
-      case Types.BIT: {
-        /**
-         * BIT should be either 0 or 1.
-         * TODO: Postgres handles this differently, returning a string "t" or "f". See the
-         * elasticsearch-jdbc plugin for an example of how this is handled
-         */
-        colValue = resultSet.getByte(col);
         break;
       }
 
